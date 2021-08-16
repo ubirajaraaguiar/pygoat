@@ -25,4 +25,4 @@ jobs:
     - name: Setup environment
       run: |
         python3 pygoat/manage.py migrate
-        python3 pygoat/manage.py runserver
+        # python3 pygoat/manage.py runserver
