@@ -1,0 +1,55 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Deploy pygoat
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - name: Setup environment
+      run: |
+        python3 pygoat/manage.py migrate
+        # python3 pygoat/manage.py runserver
+        
+    - name: Archive Release
+      uses: thedoctor0/zip-release@master
+      with:
+        filename: 'pygoat_veracode.zip'
+        path: ./pygoat
+    
+    - uses: actions/setup-java@v1 # Make java accessible on path so the uploadandscan action can run.
+      with: 
+        java-version: '8'
+    - uses: actions/upload-artifact@v2 # Copy files from repository to docker container so the next uploadandscan action can access them.
+      with:
+        path: pygoat_veracode.zip # Wildcards can be used to filter the files copied into the container. See: https://github.com/actions/upload-artifact
+    
+    - uses: veracode/veracode-uploadandscan-action@master # Run the uploadandscan action. Inputs are described above.
+      env:
+        VID: ${{ secrets.VID }}
+        VKEY: ${{ secrets.VKEY }}
+      with:
+        vid: '$VID'
+        vkey: '$VKEY'
+        criticality: 'VeryHigh'
+        appname: 'PyGoat'
+        createprofile: true
+        filepath: 'pygoat_veracode.zip'
+        deleteIncompleteScan: false
+        version: ${{ github.run_id }}'
+        scantimeout: 30
