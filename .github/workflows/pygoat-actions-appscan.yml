@@ -21,9 +21,6 @@ jobs:
         python3 pygoat/manage.py migrate
         # python3 pygoat/manage.py runserver
 
-on: 
-  push:
-    branches: [ master ]
 jobs:
   scan:
     runs-on: ubuntu-latest
