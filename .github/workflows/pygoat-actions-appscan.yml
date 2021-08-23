@@ -1,3 +1,4 @@
+name : HCL Codesweep Test
 on: [pull_request]
 jobs:
   scan:
