@@ -21,7 +21,6 @@ jobs:
         python3 pygoat/manage.py migrate
         # python3 pygoat/manage.py runserver
 
-name: HCL Codesweep Test
 on: 
   push:
     branches: [ master ]
