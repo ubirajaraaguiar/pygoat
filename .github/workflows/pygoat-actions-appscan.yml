@@ -1,6 +1,6 @@
 name: HCL Codesweep Test
 on: 
-  pull_request:
+  push:
     branches: [ master ]
 jobs:
   scan:
