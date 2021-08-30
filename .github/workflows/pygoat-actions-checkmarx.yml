@@ -1,0 +1,79 @@
+# This is a basic workflow to create GitHub Issues using the Checkmarx CxFlow GitHub Action.  It runs on a pull-request to the main branch.
+#
+# The following GitHub Secrets must be first defined:
+#   - CHECKMARX_URL
+#   - CHECKMARX_USER
+#   - CHECKMARX_PASSWORD
+#   - CHECKMARX_CLIENT_SECRET
+#   - GH_TOKEN
+#
+# Update the 'team' field to reflect the team name used in Checkmarx.
+#
+# For full documentation,including a list of all inputs, please refer to the README https://github.com/checkmarx-ts/checkmarx-cxflow-github-action
+
+name: CxFlow-GitHub-On-Push
+
+# Controls when the action will run. Triggers the workflow on push or pull request events but only for the master branch
+on:
+  push:
+    branches:
+    - develop
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel - this job is specifically configured to use the Checkmarx CxFlow Action
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on - Ubuntu is required as Docker is leveraged for the action
+    runs-on: ubuntu-latest
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+    - name: Checkmarx CxFlow Action
+      uses: checkmarx-ts/checkmarx-cxflow-github-action@v1.1
+      with:
+        project: ${{ github.repository }}_Actions
+        team: /CxServer
+        token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        checkmarx_url: ${{ secrets.CHECKMARX_URL }}   # To be stored in GitHub Secrets.
+        checkmarx_username: ${{ secrets.CHECKMARX_USERNAME }}  # To be stored in GitHub Secrets.
+        checkmarx_password: ${{ secrets.CHECKMARX_PASSWORD }}  # To be stored in GitHub Secrets.
+        checkmarx_client_secret: ${{ secrets.CHECKMARX_SECRET }}  # To be stored in GitHub Secrets.
+        incremental: false
+        break_build: false
+        scanners: sast
+        bug_tracker:
+          jira:
+            url: ${{ secrets.JIRA_URL }}
+            username: ${{ secrets.JIRA_USER }}
+            token: ${{ secrets.JIRA_TOKEN }}
+            project: SAST
+          issue-type: Bug
+          priorities:
+            High: High
+          pen-transition: In Review
+          close-transition: Done
+          open-status:
+            - To Do
+            - In Progress
+            - In Review
+          closed-status:
+            - Done
+          fields:
+            - type: result
+          name: application
+          jira-field-name: Application
+          jira-field-type: label
+            - type: result
+          name: cve
+          jira-field-name: CVEs
+          jira-field-type: label
+            - type: result
+          name: cwe
+          jira-field-name: CWEs
+          jira-field-type: label
+            - type: result
+          name: category
+          jira-field-name: Category
+          jira-field-type: label
+            - type: result
+        params: --namespace='ubirajaraaguiar' --repo-name='WebGoat' --branch='develop' --merge-id=1001
