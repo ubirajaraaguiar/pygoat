@@ -41,39 +41,5 @@ jobs:
         incremental: false
         break_build: false
         scanners: sast
-        bug_tracker:
-          jira:
-            url: ${{ secrets.JIRA_URL }}
-            username: ${{ secrets.JIRA_USER }}
-            token: ${{ secrets.JIRA_TOKEN }}
-            project: SAST
-          issue-type: Bug
-          priorities:
-            High: High
-          pen-transition: In Review
-          close-transition: Done
-          open-status:
-            - To Do
-            - In Progress
-            - In Review
-          closed-status:
-            - Done
-          fields:
-            - type: result
-          name: application
-          jira-field-name: Application
-          jira-field-type: label
-            - type: result
-          name: cve
-          jira-field-name: CVEs
-          jira-field-type: label
-            - type: result
-          name: cwe
-          jira-field-name: CWEs
-          jira-field-type: label
-            - type: result
-          name: category
-          jira-field-name: Category
-          jira-field-type: label
-            - type: result
-        params: --namespace='ubirajaraaguiar' --repo-name='WebGoat' --branch='develop' --merge-id=1001
+        bug_tracker: GITHUBPULL
+        params: --namespace='ubirajaraaguiar' --repo-name='pygoat' --branch='master' --merge-id=1001
