@@ -13,6 +13,6 @@ jobs:
    steps:
    - uses: actions/checkout@v2
    - name: Run Flow SAST
-     run: flow sast run --project-code ${{secrets.FLOW_PROJECT_CODE}} --fail-on-severity-threshold MEDIUM
+     run: flow sast run --project-code ${{secrets.FLOW_PROJECT_CODE}}
    - name: Run Flow SCA
      run: flow sca run -v INFO
