@@ -15,4 +15,4 @@ jobs:
    - name: Run Flow SAST
      run: flow sast run --project-code ${{secrets.FLOW_PROJECT_CODE}}
    - name: Run Flow SCA
-     run: flow sca run -v INFO
+     run: flow sca run --project-code ${{secrets.FLOW_PROJECT_CODE}} -v INFO
