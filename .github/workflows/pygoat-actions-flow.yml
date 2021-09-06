@@ -16,4 +16,3 @@ jobs:
      run: flow sast run --project-code ${{secrets.FLOW_PROJECT_CODE}} --fail-on-severity-threshold MEDIUM
    - name: Run Flow SCA
      run: flow sca run -v INFO
-	 
