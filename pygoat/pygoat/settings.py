@@ -144,6 +144,7 @@ LOGOUT_REDIRECT_URL = '/'
 django_heroku.settings(locals())
 
 #Authentication Backend
+useless_var = 'this is an useless variable'
 
 AUTHENTICATION_BACKENDS = (
  'django.contrib.auth.backends.ModelBackend',
