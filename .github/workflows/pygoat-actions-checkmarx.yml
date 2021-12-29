@@ -18,7 +18,8 @@ on:
   push:
     branches:
     - master
-
+    
+#         bug_tracker: GITHUBPULL
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel - this job is specifically configured to use the Checkmarx CxFlow Action
 jobs:
   # This workflow contains a single job called "build"
@@ -41,5 +42,4 @@ jobs:
         incremental: false
         break_build: false
         scanners: sast
-        bug_tracker: GITHUBPULL
         params: --namespace='ubirajaraaguiar' --repo-name='pygoat' --branch='master' --merge-id=1001
