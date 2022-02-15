@@ -1,7 +1,0 @@
-include: '../.github/workflows/pygoat-actions-checkmarx.yml'
-
-variables:
-    CHECKMARX_SCAN_PRESET: "OWASP Top 10 - 2017"
-    CX_FLOW_ENABLED_VULNERABILITY_SCANNERS: "sast"
-    CHECKMARX_INCREMENTAL: "true"
-    CX_FLOW_BREAK_BUILD: "false"
