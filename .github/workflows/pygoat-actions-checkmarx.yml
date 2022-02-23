@@ -43,4 +43,4 @@ jobs:
         scanners: sast
         incremental: true
         break_build: false
-        params: --config .checkmarx/cx.config
+        params: --config=.checkmarx/cx.config
