@@ -28,8 +28,6 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
-    - name: Prepare hosts file
-      run: echo $(ping -c 1 alb-688995047.us-east-1.elb.amazonaws.com | head -n 1 | cut -d " " -f3 | sed 's/(//g' | sed 's/)://g') alb-688995047.us-east-1.elb.amazonaws.com ec2amaz-ug2flq5 | sudo tee -a /etc/hosts
 
     - name: Checkmarx CxFlow Action
       uses: checkmarx-ts/checkmarx-cxflow-github-action@v1.3
